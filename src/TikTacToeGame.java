@@ -1,10 +1,11 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 
 public class TikTacToeGame {
 	
 	static char [] board = new char[10];
-	static int [] boardFill = {0,0,0,0,0,0,0,0,0,0};
+	static int [] boardFill = {1,0,0,0,0,0,0,0,0,0};
 	static char userMove ;
 	static char computerMove;
 	
@@ -21,15 +22,29 @@ public class TikTacToeGame {
 		System.out.println(showcurrentBoard());
 		
 		int tossOutcome = toss();
-		if(tossOutcome == 1) {
-			System.out.println("Player is playing ");
-			int numberPlayer = userTurn();
-			System.out.println(showcurrentBoard());
-		}
-		else {
-			System.out.println("Computer  is playing ");
-			int numberComputer = computerTurn();
-			System.out.println(showcurrentBoard());
+		while(true) {
+			if(tossOutcome == 1) {
+				System.out.println("Player is playing ");
+				int numberPlayer = userTurn();
+				System.out.println(showcurrentBoard());
+				tossOutcome = 0;
+			}
+			else {
+				System.out.println("Computer  is playing ");
+				int numberComputer = computerTurn();
+				System.out.println(showcurrentBoard());
+				tossOutcome = 1;
+			}
+			if(winnerCondition()) {
+				System.out.println(" Winner decided ");
+				break;
+			}
+			else if(tieCondition()) {
+				System.out.println("Game tie  ");
+				break;
+			}
+			System.out.println(Arrays.toString(boardFill));
+			System.out.println(Arrays.toString(board));
 		}
 	}
 	
@@ -67,6 +82,19 @@ public class TikTacToeGame {
 		}	
 	}
 	
+	private static boolean winnerCondition() {
+	 boolean condition1 = ((board[1] == board[2] && board[1] == board[3]) && boardFill[1] == 1 ) || ((board[1] == board[4] && board[1] == board[7]) && boardFill[1] == 1 ) || ((board[3] == board[6] && board[3] == board[9]) && boardFill[3] == 1 ) || ((board[7] == board[8] && board[7] == board[9]) && boardFill[7] == 1 );
+	 boolean diagonal   = ((board[1] == board[5] && board[1] == board[9]) && boardFill[1] == 1  ) || ((board[3] == board[5] && board[3] == board[7]) && boardFill[3] == 1  );
+	 return (condition1||diagonal);
+	}
+	public static boolean tieCondition() {
+		for (int entry : boardFill) {
+			if ( entry == 0 ) {
+				return false;
+			}
+		}
+		return true;
+	}
 	//show current board
 	private static String showcurrentBoard() {
 		return board[1] + " | " + board[2] + " | " + board[3] + "\n" + board[4] + " | " + board[5] + " | " + board[6] + "\n" + board[7] + " | " + board[8] + " | " + board[9];
@@ -90,4 +118,5 @@ public class TikTacToeGame {
 			computerMove = "X".charAt(0);
 		}
 	}
+	
 }
