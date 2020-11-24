@@ -13,7 +13,18 @@ public class TikTacToeGame {
 		game.createBoard();
 		game.chooseMove();
 		System.out.println( "UserMove : " +userMove + " ComputerMove : " + computerMove);
+		
+		System.out.println("Board numbering is as follows ");
+		System.out.println(" 1 | 2 | 3 \n 4 | 5 | 6 \n 7 | 8 | 9 ");
+		System.out.println("Current board position is follows ");
+		System.out.println(showcurrentBoard());
 	}
+	
+	public static String showcurrentBoard() {
+		return board[1] + " | " + board[2] + " | " + board[3] + "\n" + board[4] + " | " + board[5] + " | " + board[6] + "\n" + board[7] + " | " + board[8] + " | " + board[9];
+	}
+	
+	
 	
 	//method created for createBoard
 	public void createBoard() {
