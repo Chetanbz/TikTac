@@ -1,13 +1,15 @@
 
 public class TikTacToeGame {
+	
+	static char [] Board = new char[10];
+	
 	public static void main(String[] args) {
+		System.out.println(" Welcome start game");
 		TikTacToeGame game = new TikTacToeGame();
 		game.createBoard();
 	}
 	
-	
 	public void createBoard() {
-		char [] Board = new char[10];
 		for (char obj : Board) {
 			obj = " ".charAt(0);
 		}
