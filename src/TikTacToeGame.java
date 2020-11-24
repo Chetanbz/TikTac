@@ -20,13 +20,39 @@ public class TikTacToeGame {
 		System.out.println("Current board position is follows ");
 		System.out.println(showcurrentBoard());
 		
-		int number = userTurn();
-		System.out.println(showcurrentBoard());
+		int tossOutcome = toss();
+		if(tossOutcome == 1) {
+			System.out.println("Player is playing ");
+			int numberPlayer = userTurn();
+			System.out.println(showcurrentBoard());
+		}
+		else {
+			System.out.println("Computer  is playing ");
+			int numberComputer = computerTurn();
+			System.out.println(showcurrentBoard());
+		}
+	}
+	
+	private static int toss() {
+		int toss = (int)Math.floor(Math.random()*10)%2 ;
+		return toss;
 	}
 	
 	/*userTurn method  player asked to choose position to mark entry
 	 to check entry fill condition boaedFill will be check if 0 then return will executed
 	 */
+	
+	private static int computerTurn() {
+		Scanner sc = new Scanner(System.in);
+		while (true) {
+			int number = (int)Math.floor(Math.random()*10)%9 + 1;
+			if (boardFill[number] == 0) {
+				boardFill[number] = 1;
+				board[number] = computerMove;
+				return number;
+			}
+		}	
+	}
 	
 	private static int userTurn() {
 		Scanner sc = new Scanner(System.in);
@@ -38,11 +64,8 @@ public class TikTacToeGame {
 				board[number] = userMove;
 				return number;
 			}
-		}
-		
+		}	
 	}
-	
-
 	
 	//show current board
 	private static String showcurrentBoard() {
