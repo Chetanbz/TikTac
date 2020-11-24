@@ -9,6 +9,7 @@ public class TikTacToeGame {
 		game.createBoard();
 	}
 	
+	//method created for createBoard
 	public void createBoard() {
 		for (char obj : Board) {
 			obj = " ".charAt(0);
