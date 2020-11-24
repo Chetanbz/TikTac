@@ -19,20 +19,17 @@ public class TikTacToeGame {
 		System.out.println("Current board position is follows ");
 		System.out.println(showcurrentBoard());
 	}
-	
-	public static String showcurrentBoard() {
+	//show current board
+	private static String showcurrentBoard() {
 		return board[1] + " | " + board[2] + " | " + board[3] + "\n" + board[4] + " | " + board[5] + " | " + board[6] + "\n" + board[7] + " | " + board[8] + " | " + board[9];
 	}
-	
-	
-	
 	//method created for createBoard
 	public void createBoard() {
 		for (char obj : board) {
 			obj = " ".charAt(0);
 		}
 	}
-	
+	// method to assign mark to player
 	public void chooseMove() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please choose what you want to choose X or O ");
