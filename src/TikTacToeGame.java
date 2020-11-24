@@ -25,7 +25,7 @@ public class TikTacToeGame {
 	public void chooseMove() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please choose what you want to choose X or O ");
-		String mark = sc.next();
+		String mark = sc.next().toUpperCase();
 		userMove = mark.charAt(0);
 		if (mark.equals("X")) {
 			computerMove = "O".charAt(0);
