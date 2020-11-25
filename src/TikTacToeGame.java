@@ -11,6 +11,7 @@ public class TikTacToeGame {
 	static int desired = 0;
 	
 	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 		System.out.println(" Welcome start game");
 		TikTacToeGame game = new TikTacToeGame();
 		game.createBoard();
@@ -42,7 +43,15 @@ public class TikTacToeGame {
 			}
 			else if(tieCondition()) {
 				System.out.println("Game tie  ");
-				break;
+				System.out.println(" Does Player wish to continue the game \n Press 1 Continue \n Press 2 Exit ");
+				int num = sc.nextInt();
+				if (num == 1) {
+					game.createBoard();
+					tossOutcome = toss();
+				}
+				else {
+					break;
+				}
 			}
 			System.out.println(Arrays.toString(boardFill));
 			System.out.println(Arrays.toString(board));
@@ -201,8 +210,9 @@ public class TikTacToeGame {
 	}
 	//method created for createBoard
 	public void createBoard() {
-		for (char obj : board) {
-			obj = " ".charAt(0);
+		for (int i =1 ; i <board.length; i++ ) {
+			board[i] = " ".charAt(0);
+			boardFill[i] = 0;
 		}
 	}
 	// method to assign mark to playeras
