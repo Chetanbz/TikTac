@@ -100,12 +100,14 @@ public class TikTacToeGame {
 		for (int i =1; i <=9; i++) {
 			if (boardFill[i] == 0) {
 				board[i] = computerMove;
+				boardFill[i] = 1;
 				if (winnerCondition()) {
 					desired = i; 
 					return true;
 				}
 				else {
 					board[i] = " ".charAt(0);
+					boardFill[i] =0;
 				}
 			}
 		}
@@ -115,6 +117,7 @@ public class TikTacToeGame {
 		for (int i =1; i <=9; i++) {
 			if (boardFill[i] == 0) {
 				board[i] = userMove;
+				boardFill[i] = 1;
 				if (winnerCondition()) {
 					desired = i; 
 					board[i] = " ".charAt(0);
@@ -122,12 +125,12 @@ public class TikTacToeGame {
 				}
 				else {
 					board[i] = " ".charAt(0);
+					boardFill[i] = 0;
 				}
 			}
 		}
 		return false;
 	}
-	
 	
 	private static boolean winnerCondition() {
 	 boolean conditionhor1 = ((board[1] == board[2] && board[1] == board[3]) && boardFill[1] == 1 );
@@ -136,7 +139,7 @@ public class TikTacToeGame {
 	 boolean conditionver1 = ((board[1] == board[4] && board[1] == board[7]) && boardFill[1] == 1 );
 	 boolean conditionver2 = ((board[2] == board[5] && board[2] == board[8]) && boardFill[2] == 1 );
 	 boolean conditionver3 = ((board[3] == board[6] && board[3] == board[9]) && boardFill[3] == 1 );
-	 boolean diagonal1     = ((board[1] == board[5] && board[1] == board[9]) && boardFill[1] == 1 );
+	 boolean diagonal1     = ((board[9] == board[5] && board[1] == board[9]) && boardFill[1] == 1 );
 	 boolean diagonal2     = ((board[3] == board[5] && board[3] == board[7]) && boardFill[3] == 1 );
 	 
 	 return (conditionhor1 || conditionhor2 || conditionhor3 || conditionver1 || conditionver2 || conditionver3 || diagonal1 || diagonal2);
