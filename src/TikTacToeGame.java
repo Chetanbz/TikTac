@@ -1,16 +1,14 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 
 public class TikTacToeGame {
 	
 	static char [] board = new char[10];
-	static int [] boardFill = {0,0,0,0,0,0,0,0,0,0};
-	static int [] sumBoard  = new int[8];
+	static int [] boardFill = {1,0,0,0,0,0,0,0,0,0};
 	static char userMove ;
 	static char computerMove;
+	static int desired = 0;
 	
 	public static void main(String[] args) {
 		System.out.println(" Welcome start game");
@@ -46,29 +44,9 @@ public class TikTacToeGame {
 				System.out.println("Game tie  ");
 				break;
 			}
-			updateBoard();
-			//System.out.println(Arrays.toString(boardFill));
-			//System.out.println(Arrays.toString(board));
-			//System.out.println(Arrays.toString(sumBoard));
+			System.out.println(Arrays.toString(boardFill));
+			System.out.println(Arrays.toString(board));
 		}
-	}
-	public static void updateBoard() {
-		sumBoard[0] = boardFill[1]+boardFill[2]+boardFill[3];
-		sumBoard[1] = boardFill[4]+boardFill[5]+boardFill[6];
-		sumBoard[2] = boardFill[7]+boardFill[8]+boardFill[9];
-		sumBoard[3] = boardFill[1]+boardFill[4]+boardFill[7];
-		sumBoard[4] = boardFill[2]+boardFill[5]+boardFill[8];
-		sumBoard[5] = boardFill[3]+boardFill[6]+boardFill[9];
-		sumBoard[6] = boardFill[1]+boardFill[5]+boardFill[9];
-		sumBoard[7] = boardFill[3]+boardFill[5]+boardFill[7];
-	}
-	
-	public static boolean winner() {
-		for(int i =0; i<=7; i++) {
-			sumBoard[i] = 2;
-			return true;
-		}
-			return false;
 	}
 	
 	private static int toss() {
@@ -83,11 +61,25 @@ public class TikTacToeGame {
 	private static int computerTurn() {
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			int number = (int)Math.floor(Math.random()*10)%9 + 1;
-			if (boardFill[number] == 0) {
+			if(winningStrategy()) {
+				int number = desired;
 				boardFill[number] = 1;
 				board[number] = computerMove;
 				return number;
+			}
+			else if(blockStrategy()) {
+				int number = desired;
+				boardFill[number] = 1;
+				board[number] = computerMove;
+				return number;
+			}
+			else {
+				int number = (int)Math.floor(Math.random()*10)%9 + 1;
+				if (boardFill[number] == 0) {
+					boardFill[number] = 1;
+					board[number] = computerMove;
+					return number;
+				}
 			}
 		}	
 	}
@@ -98,17 +90,56 @@ public class TikTacToeGame {
 			System.out.println("Select the index position where to place mark ");
 			int number = sc.nextInt(); 
 			if (boardFill[number] == 0) {
-				boardFill[number] = 3;
+				boardFill[number] = 1;
 				board[number] = userMove;
 				return number;
 			}
 		}	
 	}
+	private static boolean winningStrategy() {
+		for (int i =1; i <=9; i++) {
+			if (boardFill[i] == 0) {
+				board[i] = computerMove;
+				if (winnerCondition()) {
+					desired = i; 
+					return true;
+				}
+				else {
+					board[i] = " ".charAt(0);
+				}
+			}
+		}
+		return false;
+	}
+	private static boolean blockStrategy() {
+		for (int i =1; i <=9; i++) {
+			if (boardFill[i] == 0) {
+				board[i] = userMove;
+				if (winnerCondition()) {
+					desired = i; 
+					board[i] = " ".charAt(0);
+					return true;
+				}
+				else {
+					board[i] = " ".charAt(0);
+				}
+			}
+		}
+		return false;
+	}
+	
 	
 	private static boolean winnerCondition() {
-	 boolean condition1 = ((board[1] == board[2] && board[1] == board[3]) && boardFill[1] == 1 ) || ((board[1] == board[4] && board[1] == board[7]) && boardFill[1] == 1 ) || ((board[3] == board[6] && board[3] == board[9]) && boardFill[3] == 1 ) || ((board[7] == board[8] && board[7] == board[9]) && boardFill[7] == 1 );
-	 boolean diagonal   = ((board[1] == board[5] && board[1] == board[9]) && boardFill[1] == 1  ) || ((board[3] == board[5] && board[3] == board[7]) && boardFill[3] == 1  );
-	 return (condition1||diagonal);
+	 boolean conditionhor1 = ((board[1] == board[2] && board[1] == board[3]) && boardFill[1] == 1 );
+	 boolean conditionhor2 = ((board[4] == board[5] && board[4] == board[6]) && boardFill[4] == 1 );
+	 boolean conditionhor3 = ((board[7] == board[8] && board[7] == board[9]) && boardFill[7] == 1 );
+	 boolean conditionver1 = ((board[1] == board[4] && board[1] == board[7]) && boardFill[1] == 1 );
+	 boolean conditionver2 = ((board[2] == board[5] && board[2] == board[8]) && boardFill[2] == 1 );
+	 boolean conditionver3 = ((board[3] == board[6] && board[3] == board[9]) && boardFill[3] == 1 );
+	 boolean diagonal1     = ((board[1] == board[5] && board[1] == board[9]) && boardFill[1] == 1 );
+	 boolean diagonal2     = ((board[3] == board[5] && board[3] == board[7]) && boardFill[3] == 1 );
+	 
+	 return (conditionhor1 || conditionhor2 || conditionhor3 || conditionver1 || conditionver2 || conditionver3 || diagonal1 || diagonal2);
 	}
 	public static boolean tieCondition() {
 		for (int entry : boardFill) {
