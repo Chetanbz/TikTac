@@ -108,9 +108,7 @@ public class TikTacToeGame {
 		return toss;
 	}
 	
-	public void check() {
-		
-	}
+
 	
 	/*userTurn method  player asked to choose position to mark entry
 	 to check entry fill condition boaedFill will be check if 0 then return will executed
