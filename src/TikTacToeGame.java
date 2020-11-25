@@ -67,6 +67,18 @@ public class TikTacToeGame {
 				board[number] = computerMove;
 				return number;
 			}
+			else if(blockStrategy()) {
+				int number = desired;
+				boardFill[number] = 1;
+				board[number] = computerMove;
+				return number;
+			}
+			else if(cornerAvailable()) {
+				int number = desired;
+				boardFill[number] = 1;
+				board[number] = computerMove;
+				return number;
+			}
 			else {
 				int number = (int)Math.floor(Math.random()*10)%9 + 1;
 				if (boardFill[number] == 0) {
@@ -94,16 +106,57 @@ public class TikTacToeGame {
 		for (int i =1; i <=9; i++) {
 			if (boardFill[i] == 0) {
 				board[i] = computerMove;
+				boardFill[i] = 1;
 				if (winnerCondition()) {
 					desired = i; 
 					return true;
 				}
 				else {
 					board[i] = " ".charAt(0);
+					boardFill[i] =0;
 				}
 			}
 		}
 		return false;
+	}
+	private static boolean blockStrategy() {
+		for (int i =1; i <=9; i++) {
+			if (boardFill[i] == 0) {
+				board[i] = userMove;
+				boardFill[i] = 1;
+				if (winnerCondition()) {
+					desired = i; 
+					board[i] = " ".charAt(0);
+					return true;
+				}
+				else {
+					board[i] = " ".charAt(0);
+					boardFill[i] = 0;
+				}
+			}
+		}
+		return false;
+	}
+	private static boolean cornerAvailable() {
+		if (boardFill[1] ==0) {
+			desired = 1;
+			return true;
+		}
+		else if (boardFill[3]==0) {
+			desired = 3;
+			return true;	
+		}
+		else if (boardFill[7] ==0) {
+			desired = 7;
+			return true;
+		}
+		else if (boardFill[9] ==0) {
+			desired = 9;
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	private static boolean winnerCondition() {
@@ -113,7 +166,7 @@ public class TikTacToeGame {
 	 boolean conditionver1 = ((board[1] == board[4] && board[1] == board[7]) && boardFill[1] == 1 );
 	 boolean conditionver2 = ((board[2] == board[5] && board[2] == board[8]) && boardFill[2] == 1 );
 	 boolean conditionver3 = ((board[3] == board[6] && board[3] == board[9]) && boardFill[3] == 1 );
-	 boolean diagonal1     = ((board[1] == board[5] && board[1] == board[9]) && boardFill[1] == 1 );
+	 boolean diagonal1     = ((board[9] == board[5] && board[1] == board[9]) && boardFill[1] == 1 );
 	 boolean diagonal2     = ((board[3] == board[5] && board[3] == board[7]) && boardFill[3] == 1 );
 	 
 	 return (conditionhor1 || conditionhor2 || conditionhor3 || conditionver1 || conditionver2 || conditionver3 || diagonal1 || diagonal2);
