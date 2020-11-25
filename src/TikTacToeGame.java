@@ -79,6 +79,12 @@ public class TikTacToeGame {
 				board[number] = computerMove;
 				return number;
 			}
+			else if(middleAvailable()) {
+				int number = desired;
+				boardFill[number] = 1;
+				board[number] = computerMove;
+				return number;
+			}
 			else {
 				int number = (int)Math.floor(Math.random()*10)%9 + 1;
 				if (boardFill[number] == 0) {
@@ -152,6 +158,15 @@ public class TikTacToeGame {
 		}
 		else if (boardFill[9] ==0) {
 			desired = 9;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	private static boolean middleAvailable() {
+		if (boardFill[5] == 0) {
+			desired = 5;
 			return true;
 		}
 		else {
