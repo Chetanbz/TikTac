@@ -189,6 +189,7 @@ public class TikTacToeGame {
 	public static boolean tieCondition() {
 		for (int entry : boardFill) {
 			if ( entry == 0 ) {
+				
 				return false;
 			}
 		}
@@ -204,7 +205,7 @@ public class TikTacToeGame {
 			obj = " ".charAt(0);
 		}
 	}
-	// method to assign mark to player
+	// method to assign mark to playeras
 	public void chooseMove() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please choose what you want to choose X or O ");
